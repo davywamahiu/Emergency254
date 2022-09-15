@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Shell xmlns="http://xamarin.com/schemas/2014/forms" 
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:local="clr-namespace:Emergency254.Views"
+       xmlns:utils="clr-namespace:Emergency254.Utils"
+       xmlns:locale="clr-namespace:Emergency254.Views.Emergency_Contacts"
+       Title="Emergency254"
+       x:Class="Emergency254.AppShell">
+
+    <!--
+        The overall app visual hierarchy is defined here, along with navigation.
+    
+        https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/shell/
+    -->
+
+    <Shell.Resources>
+        <ResourceDictionary>
+            <Style x:Key="BaseStyle" TargetType="Element">
+                <Setter Property="Shell.BackgroundColor" Value="{StaticResource WindowBackgroundColor}" />
+                <Setter Property="Shell.ForegroundColor" Value="White" />
+                <Setter Property="Shell.TitleColor" Value="White" />
+                <Setter Property="Shell.DisabledColor" Value="#B4FFFFFF" />
+                <Setter Property="Shell.UnselectedColor" Value="#95FFFFFF" />
+                <Setter Property="Shell.TabBarBackgroundColor" Value="{DynamicResource ShellTabBarBackgroundColor}" />
+                <Setter Property="Shell.TabBarForegroundColor" Value="White"/>
+                <Setter Property="Shell.TabBarUnselectedColor" Value="#95FFFFFF"/>
+                <Setter Property="Shell.TabBarTitleColor" Value="{Binding PrimaryColor}"/>
+            </Style>
+            
+            <Style TargetType="TabBar" BasedOn="{StaticResource BaseStyle}" />
+            <Style TargetType="FlyoutItem" BasedOn="{StaticResource BaseStyle}" />
+        </ResourceDictionary>
+    </Shell.Resources>
+
+    <TabBar Style="{StaticResource BaseStyle}">
+        <ShellContent Title="News" Icon="tab_feed.png" ContentTemplate="{DataTemplate local:NewsOverviewPage}" />
+        
+        <ShellContent Title="Types" Icon="icn_menu_list.png" ContentTemplate="{DataTemplate local:HelpInEmergency}" />
+        <Tab Title="Account">
+            <Tab.Icon>
+                <FontImageSource
+                    Glyph="{StaticResource IconPerson}"
+                    FontFamily="{StaticResource MaterialFontFamily}" />
+            </Tab.Icon>
+            <ShellContent ContentTemplate="{DataTemplate local:ProfilePage}" />
+        </Tab>
+        <Tab Title="About" Icon="icn_menu_info.png">
+            <ShellContent Title="About" ContentTemplate="{DataTemplate local:AboutPage}"/>
+        </Tab>
+        <Tab Title="Logs">
+            <Tab.Icon>
+                <FontImageSource
+                    Glyph="{StaticResource IconDownload}"
+                    FontFamily="{StaticResource MaterialFontFamily}" />
+            </Tab.Icon>
+            <ShellContent ContentTemplate="{DataTemplate local:ULogs}" />
+        </Tab>
+        <Tab Title="Emergency Contacts">
+            <Tab.Icon>
+                <FontImageSource
+                    Glyph="{StaticResource IconPhone}"
+                    FontFamily="{StaticResource MaterialFontFamily}" />
+            </Tab.Icon>
+            <ShellContent ContentTemplate="{DataTemplate locale:ImportantContacts}" />
+        </Tab>
+        <Tab Title="Add Emergency Contacts">
+            <Tab.Icon>
+                <FontImageSource
+                    Glyph="{StaticResource IconAdd}"
+                    FontFamily="{StaticResource MaterialFontFamily}" />
+            </Tab.Icon>
+            <ShellContent ContentTemplate="{DataTemplate locale:AddNewContact}" />
+        </Tab>
+        <Tab Title="Help" Icon="icn_menu_case.png">
+            <ShellContent Title="Help" ContentTemplate="{DataTemplate local:SendUsMessage}"/>
+        </Tab>
+        <Tab Title="Settings">
+            <Tab.Icon>
+                <FontImageSource
+                    Glyph="{StaticResource IconSettings}"
+                    FontFamily="{StaticResource MaterialFontFamily}" />
+            </Tab.Icon>
+            <ShellContent ContentTemplate="{DataTemplate local:SettingsPage}" />
+        </Tab>
+
+    </TabBar>
+
+    <!--
+        If you would like to navigate to this content you can do so by calling
+        await Shell.Current.GoToAsync("//LoginPage");
+    -->
+
+
+</Shell>
