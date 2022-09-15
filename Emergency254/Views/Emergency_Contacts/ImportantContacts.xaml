@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:Emergency254.Views.Emergency_Contacts"
+             BackgroundColor="{DynamicResource WindowBackgroundColor}"
+             x:DataType="viewmodels:ContactsViewmodels"
+             Title="Emergency Contacts"
+             NavigationPage.HasBackButton="False"
+			 xmlns:sharedmodels="clr-namespace:Emergency254.Views.Emergency_Contacts;assembly=Emergency254"
+             x:Class="Emergency254.Views.Emergency_Contacts.ImportantContacts">
+    <ContentPage.ToolbarItems>
+        <!--  The Refresh ToolBarItem is only for UWP. See code-behind.  -->
+        <ToolbarItem Command="{Binding RefreshCommand}" Text="Refresh">
+            <ToolbarItem.IconImageSource>
+                <FontImageSource FontFamily="{DynamicResource MaterialFontFamily}" Glyph="{StaticResource IconRefresh}" />
+            </ToolbarItem.IconImageSource>
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Frame
+                    Margin="12,12,12,0"
+                    Padding="0"
+                    Style="{DynamicResource FrameStyle}">
+                <SearchBar
+                        BackgroundColor="{DynamicResource SystemGray4}"
+                        CancelButtonColor="{DynamicResource SystemGray}"
+                        Placeholder="Search County, NGO, "
+                        TextChanged="SearchBar_TextChanged"
+                        Text="{Binding SearchTermz}"
+                        PlaceholderColor="{DynamicResource SystemGray2}"
+                        TextColor="{DynamicResource SystemGray}" />
+            </Frame>
+            <ListView
+            Grid.Row="1"
+            BackgroundColor="Transparent"
+            CachingStrategy="RecycleElement"
+            IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+            HasUnevenRows="True"
+            IsPullToRefreshEnabled="true"
+            ItemsSource="{Binding MyContactz}"
+            RefreshCommand="{Binding RefreshCommand}"
+            SeparatorVisibility="None">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell x:DataType="sharedmodels:BeginSavingContact">
+                            <ViewCell.ContextActions>
+                                <MenuItem
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:ContactsViewmodels}}, Path=MessageNumberCommand}"
+                                CommandParameter="{Binding DataPartitionId}"
+                                x:Name="txt_message"
+                                Text="Text" />
+                                <MenuItem
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:ContactsViewmodels}}, Path=DialNumberCommand}"
+                                CommandParameter="{Binding DataPartitionId}"
+                                    x:Name="call_help"
+                                Text="Call" />
+                            </ViewCell.ContextActions>
+                            <Frame Margin="16,8" 
+                               InputTransparent="True"
+                               Style="{DynamicResource FrameStyle}">
+                                <StackLayout Orientation="Vertical">
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label Style="{DynamicResource SmallLabelStyle}" TextColor="DodgerBlue" Text="{Binding CountLogs}"/>
+                                        <Label Text=": "/>
+                                        <Label Style="{DynamicResource SmallLabelStyle}" TextColor="YellowGreen" Text="{Binding Logs}"/>
+                                    </StackLayout>
+                                    <StackLayout Orientation="Vertical">
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label Style="{DynamicResource EntryStyle}" Text="Primary/Pendekezo ::"/>
+                                            <Label Style="{DynamicResource SmallLabelStyle}" TextColor="OrangeRed" Text="{Binding DataPartitionId}"/>
+                                        </StackLayout>
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label Style="{DynamicResource EntryStyle}" Text="Secondary/Mbadala ::"/>
+                                            <Label Style="{DynamicResource SmallLabelStyle}" TextDecorations="Strikethrough" Text="{Binding Id}"/>
+                                        </StackLayout>
+                                    </StackLayout>
+                                </StackLayout>
+                                
+                            </Frame>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Frame
+            Grid.RowSpan="2"
+            Margin="8"
+            Padding="0"
+            CornerRadius="28"
+            HasShadow="True"
+            HeightRequest="56"
+            HorizontalOptions="End"
+            Style="{DynamicResource FrameStyle}"
+            BackgroundColor="{DynamicResource PrimaryColor}"
+            VerticalOptions="End"
+            WidthRequest="56">
+                <ImageButton
+                Padding="12"
+                Command="{Binding NewCommand}"
+                HorizontalOptions="FillAndExpand"
+                Style="{DynamicResource FloatingActionButtonStyle}"
+                BackgroundColor="{DynamicResource PrimaryColor}"
+                VerticalOptions="FillAndExpand">
+                    <ImageButton.Source>
+                        <FontImageSource
+                        FontFamily="{DynamicResource MaterialFontFamily}"
+                        Glyph="{StaticResource IconAdd}"
+                        Color="White" />
+                    </ImageButton.Source>
+                </ImageButton>
+            </Frame>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

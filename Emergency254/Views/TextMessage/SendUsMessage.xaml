@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage 
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    x:Class="Emergency254.Views.SendUsMessage"
+             BackgroundColor="{DynamicResource WindowBackgroundColor}"
+             Title="Best Response/Ujumbe Kamilifu">
+    <ContentPage.Content>
+        <ScrollView>
+            <Grid Padding="8">
+                <Frame
+                                Padding="0,0,0,0"
+                                CornerRadius="8"
+                                InputTransparent="True"
+                                Style="{DynamicResource FrameStyle}">
+                    <Grid RowSpacing="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <StackLayout HorizontalOptions="CenterAndExpand">
+                            <Grid>
+                                <pancake:PancakeView
+                                            BackgroundGradientEndColor="{DynamicResource SystemBlue}"
+                                            BackgroundGradientStartColor="#10000000"
+                                            HorizontalOptions="FillAndExpand"
+                                            VerticalOptions="FillAndExpand" />
+                                <Label Style="{DynamicResource LargeLabelStyle}" Text="English" HorizontalOptions="CenterAndExpand"/>
+                            </Grid>
+                            <StackLayout Padding="8">
+
+                                <Label Style="{DynamicResource MediumLabelStyle}" Text="Learn in the 3 quick steps how to send a credited message straight to the point." HorizontalOptions="CenterAndExpand"></Label>
+                                <Label Style="{DynamicResource SmallLabelStyle}" Text="1. Identify the cause of the disaster."></Label>
+                                <Label Style="{DynamicResource SmallLabelStyle}" Text="2. Text/Call/Email us a message with the explanation including: "/>
+                                <Label Style="{DynamicResource SmallLabelStyle}" Text="-your county"/>
+                                <Label Style="{DynamicResource SmallLabelStyle}" Text="-or Your constituency"/>
+                                <Label Style="{DynamicResource SmallLabelStyle}" Text="-Location or Village"/>
+                                <Label Style="{DynamicResource SmallLabelStyle}" Text="3. The disaster or emergency, your location will automatically be gencerated."/>
+                                <Label Style="{DynamicResource MediumLabelStyle}" Text="NB: Your Location is important because of response co-ordination." TextColor="Red"/>
+                            </StackLayout>
+                            <Grid>
+                                <pancake:PancakeView
+                                            BackgroundGradientEndColor="{DynamicResource SystemBlue}"
+                                            BackgroundGradientStartColor="#10000000"
+                                            HorizontalOptions="FillAndExpand"
+                                            VerticalOptions="FillAndExpand" />
+                                <Label Style="{DynamicResource LargeLabelStyle}" Text="Kiswahili" HorizontalOptions="CenterAndExpand"/>
+                            </Grid>
+                            <StackLayout Padding="8">
+                                <Label Style="{DynamicResource MediumLabelStyle}" Text="Njia nzuri za kutuma Ujumbe ni kama zifuatazo,Tafadhali Zingatia." HorizontalOptions="CenterAndExpand"></Label>
+                                <Label Style="{DynamicResource SmallLabelStyle}" Text="1. Tambua janga au mkasa."></Label>
+                                <Label Style="{DynamicResource SmallLabelStyle}" Text="2. Tuma ujumbe mfupi kwa SMS/arafa au kupiga simu ujikumulisha yafuatayo: "/>
+                                <Label Style="{DynamicResource SmallLabelStyle}" Text="-Kauti Yako"/>
+                                <Label Style="{DynamicResource SmallLabelStyle}" Text="-ama Eneo Bunge, Mji au Jiji"/>
+                                <Label Style="{DynamicResource SmallLabelStyle}" Text="-Kijiji chako au kitongoji"/>
+                                <Label Style="{DynamicResource SmallLabelStyle}" Text="3. Jumlisha mkasa/janga pia, Simu yako itatoa habari kwetu ya pahala ulipo."/>
+                                <Label Style="{DynamicResource MediumLabelStyle}" Text="Nkt: Tutapata kujua mahala ulipo kijographia kupitia usaidizi wa simu yako ili kukufikia haraka." TextColor="Red"/>
+                            </StackLayout>
+                            <Button HorizontalOptions="CenterAndExpand" FontFamily="{DynamicResource MaterialFontFamily}" BackgroundColor="DodgerBlue" Clicked="Button_Clicked" Text="Report/Ripoti">
+                                
+                            </Button>
+                        </StackLayout>
+                    </Grid>
+                </Frame>
+            </Grid>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

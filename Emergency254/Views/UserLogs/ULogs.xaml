@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:viewmodels="clr-namespace:Emergency254.Views.UserLogs"
+            BackgroundColor="{DynamicResource WindowBackgroundColor}"
+            x:DataType="viewmodels:LogsViewModel"
+             Title="Location Logs"
+			 xmlns:sharedmodels="clr-namespace:Emergency254.Views.UserLogs;assembly=Emergency254" xmlns:pancakeview="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             x:Class="Emergency254.Views.ULogs">
+    <ContentPage.ToolbarItems>
+        <!--  The Refresh ToolBarItem is only for UWP. See code-behind.  -->
+        <ToolbarItem Command="{Binding RefreshCommand}" Text="Refresh">
+            <ToolbarItem.IconImageSource>
+                <FontImageSource FontFamily="{DynamicResource MaterialFontFamily}" Glyph="{StaticResource IconRefresh}" />
+            </ToolbarItem.IconImageSource>
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <ScrollView>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Frame
+                    Margin="12,12,12,0"
+                    Padding="0"
+                    Style="{DynamicResource FrameStyle}">
+                    <SearchBar
+                        BackgroundColor="{DynamicResource SystemGray4}"
+                        CancelButtonColor="{DynamicResource SystemGray}"
+                        Placeholder="Search By Time or Date"
+                        TextChanged="SearchBar_TextChanged"
+                        Text="{Binding SearchTerm}"
+                        PlaceholderColor="{DynamicResource SystemGray2}"
+                        TextColor="{DynamicResource SystemGray}" />
+                </Frame>
+                <ListView
+            Grid.Row="1"
+            BackgroundColor="Transparent"
+            CachingStrategy="RecycleElement"
+            IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+            HasUnevenRows="True"
+            IsPullToRefreshEnabled="true"
+            ItemsSource="{Binding UserLogsTracker}"
+            RefreshCommand="{Binding RefreshCommand}"
+            SeparatorVisibility="None">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell x:DataType="sharedmodels:MyLogs">
+                                <Frame Margin="12,6" 
+                               InputTransparent="True"
+                               Style="{DynamicResource FrameStyle}">
+                                    <StackLayout Orientation="Horizontal">
+                                                <Label Style="{DynamicResource MicroLabelStyle}" Text="{Binding CountLogs}"/>
+                                                <Label Text=": "/>
+                                                <Label Style="{DynamicResource MicroLabelStyle}" Text="{Binding Logs}"/>
+                                            </StackLayout>
+                                        </Frame>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Grid>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

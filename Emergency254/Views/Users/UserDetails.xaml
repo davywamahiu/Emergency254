@@ -1,0 +1,304 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Emergency254.Views.UserDetails"
+			 xmlns:converters="clr-namespace:Emergency254.Converters"
+            xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+            xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
+            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+            xmlns:pancakeview="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+			 xmlns:viewmodels="clr-namespace:Emergency254.ViewModels"
+			 xmlns:models="clr-namespace:Emergency254.Shared.Models"
+            xmlns:utils="clr-namespace:Emergency254.Utils"
+			 xmlns:sharedmodels="clr-namespace:Emergency254.Shared.Models;assembly=Emergency254"
+    Title="{Binding Contact.DisplayName}"
+    BackgroundColor="{DynamicResource WindowBackgroundColor}"
+    NavigationPage.BackButtonTitle="Back"
+    mc:Ignorable="d"
+    x:DataType="viewmodels:DetailViewModel">
+    <d:ContentPage.BindingContext>
+        <viewmodels:DetailViewModel />
+    </d:ContentPage.BindingContext>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:BooleanInverter x:Key="BooleanInverter" />
+            <utils:InverseBoolConverter x:Key="InverseBoolConverter"/>
+            <utils:ByteToImageConverter x:Key="imgToSrc"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem
+            Command="{Binding DeleteCommand}"
+            Text="Delete">
+            <ToolbarItem.IconImageSource>
+                <FontImageSource
+                        FontFamily="{DynamicResource MaterialFontFamily}"
+                        Glyph="{StaticResource IconDelete}"/>
+            </ToolbarItem.IconImageSource>
+        </ToolbarItem>
+        <ToolbarItem
+            Command="{Binding EditCommand}"
+            Text="Edit">
+            <ToolbarItem.IconImageSource>
+                <FontImageSource
+                        FontFamily="{DynamicResource MaterialFontFamily}"
+                        Glyph="{StaticResource IconEdit}"/>
+            </ToolbarItem.IconImageSource>
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
+    <ScrollView>
+        <Grid>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <StackLayout>
+                <Grid RowSpacing="12">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="124" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <pancakeview:PancakeView
+                CornerRadius="40,15,15,40"
+                Margin="0,12,0,0"
+                HeightRequest="100"
+                HorizontalOptions="Center"
+                IsClippedToBounds="True"
+                Style="{DynamicResource PancakeStyle}"
+                VerticalOptions="Center"
+                WidthRequest="100">
+                        <StackLayout>
+                            <Label 
+                                           TextColor="White"
+                                           VerticalOptions="CenterAndExpand"
+                                           HorizontalOptions="Center"
+                                           FontSize="24"
+                                           IsVisible="{Binding Contact.hasPicture, Converter={StaticResource InverseBoolConverter}}"/>
+                            <Image Source="{Binding Contact.Image, Converter={StaticResource imgToSrc}}"
+                                               Aspect="Fill"
+                                               IsVisible="{Binding Contact.hasPicture}">
+                                <Image.GestureRecognizers>
+                                    <TapGestureRecognizer NumberOfTapsRequired="2" Tapped="OpenEasterEgg" />
+                                </Image.GestureRecognizers>
+                            </Image>
+                        </StackLayout>
+                    </pancakeview:PancakeView>
+
+                    <StackLayout Grid.Column="1" >
+                        <StackLayout
+                Padding="0,12,0,0"
+                BindingContext="{Binding Contact}"
+                Spacing="0">
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="Employed: " HorizontalOptions="Start" Style="{DynamicResource SmallLabelStyle}"/>
+                                <Label x:DataType="sharedmodels:Contact" Style="{DynamicResource LargeLabelStyle}" Text="{Binding Company}" />
+                            </StackLayout>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="Schooling: " HorizontalOptions="Start" Style="{DynamicResource SmallLabelStyle}"/>
+                                <Label x:DataType="sharedmodels:Contact" Style="{DynamicResource SmallLabelStyle}" Text="{Binding JobTitle}" />
+                            </StackLayout>
+                        </StackLayout>
+
+                        <Label BindingContext="{Binding Contact}" Style="{DynamicResource MicroLabelStyle}">
+                            <Label.FormattedText>
+                                <FormattedString x:DataType="sharedmodels:Contact">
+                                    <Span  Text="{Binding Street}"/>
+                                    <Span Text="&#x0a;"/>
+                                    <Span Text="{Binding City}"/>
+                                    <Span Text=", "/>
+                                    <Span Text="{Binding StatePostal}"/>
+                                    <Span Text="&#x0a;"/>
+                                    <Span Text="{Binding Phone}"/>
+                                    <Span Text="&#x0a;"/>
+                                    <Span Text="{Binding Email}"/>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+
+
+
+
+                    </StackLayout>
+
+                    <StackLayout
+                        Padding="10,0,10,0"
+                HorizontalOptions="Center"
+                Spacing="24"
+                Grid.Row="1"
+                Grid.ColumnSpan="2">
+                        <StackLayout>
+                            <Frame
+                                Padding="0,0,0,0"
+                                CornerRadius="8"
+                                InputTransparent="True"
+                                Style="{DynamicResource FrameStyle}">
+                                <Grid RowSpacing="0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <StackLayout Spacing="5">
+                                        <Label VerticalTextAlignment="Center" Text="Use the buttons below to allow location updates for covid 19 tracking." Style="{DynamicResource MediumLabelStyle}"/>
+                                        <StackLayout>
+                                            <Button HorizontalOptions="CenterAndExpand" BackgroundColor="DodgerBlue" Clicked="Button_Clicked_2" Text="Send Location Updates"/>
+                                            <Button HorizontalOptions="CenterAndExpand" BackgroundColor="OrangeRed" Clicked="Button_Clicked_1" Text="Stop Location Updates"/>
+                                            <Entry
+                                                Grid.Row="1"
+                                                Grid.Column="1"
+                                                Keyboard="Numeric"
+                                                x:Name="lati"
+                                                IsReadOnly="True"
+                                                Placeholder="Latitude: "
+                                                Style="{DynamicResource EntryStyle}"
+                                                 />
+                                            <Entry
+                                                Grid.Row="1"
+                                                Grid.Column="1"
+                                                IsReadOnly="True"
+                                                x:Name="longi"
+                                                Keyboard="Numeric"
+                                                Placeholder="Logitude: "
+                                                Style="{DynamicResource EntryStyle}"
+                                                 />
+                                            <Grid Grid.Row="2" Grid.ColumnSpan="2">
+
+                                                <Frame
+                                                    Margin="16"
+                                                    Style="{DynamicResource FrameStyle}"
+                                                    VerticalOptions="Center">
+                                                    <StackLayout Spacing="20">
+                                                        <Label
+                                                            Style="{DynamicResource SmallLabelStyle}"
+                                                            Text="No map is available no cached location found."
+                                                            VerticalTextAlignment="Center" />
+                                                        <Label
+                                                            Style="{DynamicResource SmallLabelStyle}"
+                                                            Text="Please connect to the internet to view map."
+                                                            VerticalTextAlignment="Center" />
+                                                    </StackLayout>
+                                                </Frame>
+                                                <AbsoluteLayout
+                                                        AbsoluteLayout.LayoutBounds="0, 0, 1.0, 1.0"
+                                                        AbsoluteLayout.LayoutFlags="All">
+                                                    <ActivityIndicator
+                                                        AbsoluteLayout.LayoutBounds="0.5, 0.5, 0.2, AutoSize"
+                                                        AbsoluteLayout.LayoutFlags="PositionProportional, WidthProportional"
+                                                        IsRunning="{Binding IsBusy}"
+                                                        IsVisible="{Binding IsBusy}" />
+                                                    <maps:Map
+                                                        x:Name="locame"
+                                                        AbsoluteLayout.LayoutBounds="0, 0, 1.0, 1.0"
+                                                        AbsoluteLayout.LayoutFlags="All"
+                                                        IsVisible="false" />
+                                                </AbsoluteLayout>
+                                            </Grid>
+                                        </StackLayout>
+                                    </StackLayout>
+                                </Grid>
+                            </Frame>
+                        </StackLayout>
+                        <Label VerticalTextAlignment="Center" Text="Click the button bellow whenever there is an emergency, disaster etc." Style="{DynamicResource MediumLabelStyle}"/>
+                        <Button HorizontalOptions="CenterAndExpand" BackgroundColor="DodgerBlue" Clicked="Button_Clicked" Text="Report/Ripoti"/>
+                        <StackLayout>
+                            <Frame
+                                Padding="0,0,0,0"
+                                CornerRadius="8"
+                                InputTransparent="True"
+                                Style="{DynamicResource FrameStyle}">
+                                <Grid RowSpacing="0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <StackLayout>
+                                        <Label Margin="4,5,0,0" Text="Pass Generator" Style="{DynamicResource MediumLabelStyle}"/>
+                                        <Entry
+                                        Grid.Row="1"
+                                        Grid.Column="1"
+                                        Keyboard="Text"
+                                        IsReadOnly="True"
+                                        Text="{Binding Contact.DisplayName}"
+                                        Placeholder="Your Name *"
+                                        Style="{DynamicResource EntryStyle}"
+                                         />
+                                        <Entry
+                                        Grid.Row="1"
+                                        Grid.Column="1"
+                                        IsReadOnly="True"
+                                        Keyboard="Telephone"
+                                        Text="{Binding Contact.Phone}"
+                                        Placeholder="Mobile number *"
+                                        Style="{DynamicResource EntryStyle}"
+                                         />
+                                        <Entry
+                                        Grid.Row="1"
+                                        Grid.Column="1"
+                                        Keyboard="Numeric"
+                                        IsReadOnly="True"
+                                        Text="{Binding Contact.UniqueCodeUser}"
+                                        Placeholder="Unique Identifier(ID) *"
+                                        Style="{DynamicResource EntryStyle}"
+                                         />
+                                        <Entry
+                                        Grid.Row="1"
+                                        Grid.Column="1"
+                                        Keyboard="Default"
+                                        IsReadOnly="True"
+                                        Text="{Binding Contact.Street}"
+                                        Placeholder="Your Residence *"
+                                        Style="{DynamicResource EntryStyle}"
+                                         />
+                                        <Entry
+                                        Grid.Row="1"
+                                            x:Name="verify_me"
+                                        Grid.Column="1"
+                                        Keyboard="Text"
+                                        IsEnabled="False"
+                                        Text="{Binding Contact.Nhif}"
+                                        Placeholder="Your NHIF Number(if available) *"
+                                        Style="{DynamicResource EntryStyle}" />
+                                        <Button HorizontalOptions="CenterAndExpand" BackgroundColor="DodgerBlue" Text="Send"/>
+                                        <Label VerticalTextAlignment="Center" Text="Check if you are already registered" Style="{DynamicResource SmallLabelStyle}"/>
+                                        <Entry
+                                        Grid.Row="1"
+                                        Grid.Column="1"
+                                        Keyboard="Default"
+                                        IsReadOnly="True"
+                                        Text="{Binding Contact.Phone}"
+                                        Placeholder="Your Phone Number*"
+                                        Style="{DynamicResource EntryStyle}"
+                                         />
+                                        <Entry
+                                        Grid.Row="1"
+                                        Grid.Column="1"
+                                        Keyboard="Text"
+                                        IsReadOnly="True"
+                                        Placeholder="Your Unique Identifier(ID) *"
+                                        Text="{Binding Contact.UniqueCodeUser}"
+                                        Style="{DynamicResource EntryStyle}" />
+                                        <Label VerticalTextAlignment="Center" Text="If number does not appear please register" Style="{DynamicResource SmallLabelStyle}"/>
+                                        <Button Margin="0,0,0,5" HorizontalOptions="CenterAndExpand" BackgroundColor="DodgerBlue" Text="Check"/>
+                                    </StackLayout>
+                                </Grid>
+                            </Frame>
+                        </StackLayout>
+
+                    </StackLayout>
+
+                </Grid>
+
+            </StackLayout>
+            <ImageButton
+            x:Name="ImgMorning"
+            Grid.Row="0"
+            IsVisible="false"
+            Grid.RowSpan="3"
+            Source="{Binding Contact.Image, Converter={StaticResource imgToSrc}}"
+            Clicked="HideEasterEgg" />
+        </Grid>
+    </ScrollView>
+</ContentPage>

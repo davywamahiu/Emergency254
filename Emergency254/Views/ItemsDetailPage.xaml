@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 x:Class="Emergency254.Views.ItemsDetailPage"
+             BackgroundColor="{DynamicResource WindowBackgroundColor}"
+             Title="{Binding Title}">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Get Help?" Clicked="ToolbarItem_Clicked"/>
+    </ContentPage.ToolbarItems>
+    <ScrollView>
+        <StackLayout Spacing="20" Padding="15">
+            <StackLayout>
+                <Label Style="{DynamicResource MediumLabelStyle}" Text="{Binding Item.Text}" HorizontalOptions="CenterAndExpand"/>
+                <Image HorizontalOptions="CenterAndExpand" Source="{Binding Item.Icon}" Aspect="AspectFit" WidthRequest="130" HeightRequest="100"/>
+                <StackLayout>
+                    <Label Style="{DynamicResource MicroLabelStyle}" HorizontalOptions="CenterAndExpand" Text="Description, Tips, and many more:" />
+                    <Grid>
+                        <Label Style="{DynamicResource SmallLabelStyle}" LineBreakMode="WordWrap" Margin="10,0,0,0" Text="{Binding Item.Description}" />
+                    </Grid>
+                </StackLayout>
+                <Label Style="{DynamicResource SmallLabelStyle}" Text="{Binding Item.Sub1}" />
+                <Label Style="{DynamicResource SmallLabelStyle}" Text="{Binding Item.Sub2}" />
+                <Label Style="{DynamicResource SmallLabelStyle}" Text="{Binding Item.Sub3}" />
+                <Label Style="{DynamicResource SmallLabelStyle}" Text="{Binding Item.Sub4}" />
+                <Label Style="{DynamicResource SmallLabelStyle}" Text="{Binding Item.Sub5}" />
+                <Label Style="{DynamicResource SmallLabelStyle}" Text="{Binding Item.Sub6}" />
+                <Label Style="{DynamicResource SmallLabelStyle}" Text="{Binding Item.Sub7}" />
+                <Label Style="{DynamicResource SmallLabelStyle}" Text="{Binding Item.Final}" FontSize="16" TextColor="Red"/>
+                <Label Style="{DynamicResource SmallLabelStyle}" Text="{Binding Item.Others}" />
+                <Label Style="{DynamicResource SmallLabelStyle}" Text="{Binding Item.Prevention}" />
+                <Image HorizontalOptions="CenterAndExpand" Source="{Binding Item.Icon1}" Aspect="AspectFit" WidthRequest="130" HeightRequest="100"/>
+                <Label Style="{DynamicResource SmallLabelStyle}" Text="{Binding Item.Prevention1}" />
+                <Image HorizontalOptions="CenterAndExpand" Source="{Binding Item.Icon2}" Aspect="AspectFit" WidthRequest="130" HeightRequest="100"/>
+                <Label Style="{DynamicResource SmallLabelStyle}" Text="{Binding Item.Prevention2}" />
+                <Image HorizontalOptions="CenterAndExpand" Source="{Binding Item.Icon3}" Aspect="AspectFit" WidthRequest="130" HeightRequest="100"/>
+                <Label Style="{DynamicResource SmallLabelStyle}" Text="{Binding Item.Prevention3}" />
+                <Image HorizontalOptions="CenterAndExpand" Source="{Binding Item.Icon4}" Aspect="AspectFit" WidthRequest="130" HeightRequest="100"/>
+                <Label Style="{DynamicResource SmallLabelStyle}" Text="{Binding Item.Prevention4}" />
+            </StackLayout>
+            <Grid>
+                <Label Style="{DynamicResource SmallLabelStyle}" LineBreakMode="WordWrap" Margin="10,0,0,0" Text="{Binding Item.FirstAid}" FontSize="16" TextColor="Red"/>
+            </Grid>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

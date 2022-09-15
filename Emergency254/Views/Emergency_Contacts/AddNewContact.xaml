@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             Title="{Binding Title}"
+             xmlns:viewmodels="clr-namespace:Emergency254.Views.Emergency_Contacts"
+	        xmlns:sharedmodels="clr-namespace:Emergency254.Views.Emergency_Contacts"
+            BackgroundColor="{DynamicResource WindowBackgroundColor}"
+             x:Class="Emergency254.Views.Emergency_Contacts.AddNewContact">
+    
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Command="{Binding SaveCommand}" Text="Save">
+            <ToolbarItem.IconImageSource>
+                <FontImageSource FontFamily="{DynamicResource MaterialFontFamily}" Glyph="{StaticResource IconSave}" />
+            </ToolbarItem.IconImageSource>
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
+
+    <ScrollView>
+        <StackLayout>
+            <StackLayout Padding="12" 
+                     BindingContext="{Binding BeginSavingContact1}">
+                <Grid x:DataType="sharedmodels:BeginSavingContact">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Label
+                    Grid.Row="0"
+                    Grid.ColumnSpan="2"
+                    Style="{DynamicResource LargeLabelStyle}"
+                    Text="Emergency Contacts Registration" />
+
+                    <Image
+                    Grid.Row="1"
+                    HeightRequest="36"
+                    VerticalOptions="Center"
+                    WidthRequest="36">
+                        <Image.Source>
+                            <FontImageSource
+                            FontFamily="{DynamicResource MaterialFontFamily}"
+                            Glyph="{StaticResource IconPhone}"
+                            Size="24"
+                            Color="{DynamicResource SystemGray2}" />
+                        </Image.Source>
+                    </Image>
+
+
+                    <Entry
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Keyboard="Text"
+                    Placeholder="County Name/ Organization"
+                    Style="{DynamicResource EntryStyle}"
+                    Text="{Binding CountLogs}" />
+                    <Entry
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    Keyboard="Text"
+                    Placeholder="Service Name(eg ambulance)"
+                    Style="{DynamicResource EntryStyle}"
+                    Text="{Binding Logs}" />
+                    <Entry
+                    Grid.Row="3"
+                    Grid.Column="1"
+                    Keyboard="Numeric"
+                    Placeholder="Contact I(primary)"
+                    Style="{DynamicResource EntryStyle}"
+                    Text="{Binding DataPartitionId}" />
+                    <Entry
+                    Grid.Row="4"
+                    Grid.Column="1"
+                    Keyboard="Numeric"
+                    Placeholder="Contact II(Alternative)"
+                    Style="{DynamicResource EntryStyle}"
+                    Text="{Binding Id}" />
+                </Grid>
+            </StackLayout>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>
